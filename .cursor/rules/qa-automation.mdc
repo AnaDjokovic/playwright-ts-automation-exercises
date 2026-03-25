@@ -1,0 +1,34 @@
+---
+description: Project context and conventions for QA Automation Exercises (Playwright E2E + API)
+globs: 
+alwaysApply: true
+---
+
+# QA Automation Exercises – project context
+
+## Stack
+- Playwright (TypeScript), E2E + API tests
+- Page Object Model, custom fixtures
+
+## Structure
+- `tests/e2e/` — E2E: `fixtures.ts` (inject page objects), `helpers/` (BasePage, data.helper), `pageObjects/`, `specs/`
+- `tests/api/` — API: `helpers/` (https-helper, function-helper), `specs/`
+- Config: `playwright.config.ts` (BASE_URL, projects: api, e2e-chrome, e2e-firefox)
+
+## Conventions
+- E2E specs use fixtures: `import { test, expect } from '../fixtures'` and inject `homePage`, `productsPage`, `productDetailsPage`, `cartPage` in test/beforeEach.
+- Page objects extend `BasePage`; use `this.goto(path)` for navigation. Locators in constructor, actions as async methods.
+- Use proper TypeScript types: `Page`, `Locator`, `APIRequestContext` from `@playwright/test`. Define interfaces for return types.
+- Test data: `tests/e2e/helpers/data.helper.ts`. No hardcoded URLs; use BASE_URL in config.
+- Tag tests: `{ tag: ['@smoke', '@regression', '@home', '@cart', '@pdp', '@api'] }`. Run with `npx playwright test --grep @smoke`.
+
+## Commands
+- `npm run test:e2e:chrome` / `test:e2e:firefox` / `test:api`
+- `npm run lint` / `npm run format`
+
+## Don't
+- Use `page.waitForTimeout()` — use `expect(locator).toHaveCount()` or `waitForLoadState` / `waitFor({ state })`.
+- Put assertions in afterAll; use a dedicated test or test.step() for cleanup checks.
+- Duplicate cart logic in ProductsPage; cart belongs in CartPage only.
+- Use `require()`/`module.exports` — always use ES module `import`/`export` syntax.
+- Use `any` type — prefer specific types or `unknown` with type narrowing.
