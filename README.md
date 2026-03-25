@@ -234,18 +234,6 @@ Tests use Playwright fixtures for automatic page object and test data injection
 - **API-based Cleanup** - Tests clean up after themselves
 - **Parallel-safe** - Tests can run concurrently without interference
 
-## Best Practices Implemented
-
-✅ **Page Object Model** - Separation of UI interactions and test logic
-✅ **DRY Principle** - Reusable page objects and helper methods
-✅ **Test Data Management** - Centralized, unique data generation
-✅ **Type Safety** - Full TypeScript for better IDE support
-✅ **Fail-fast** - Screenshots and traces on failure
-✅ **Explicit Waits** - Proper element state handling
-✅ **Atomic Methods** - Single-responsibility methods in page objects
-✅ **Test Isolation** - No test dependencies or shared state
-✅ **CI/CD Ready** - Configured for headless execution
-
 ## Technology Stack
 
 | Technology | Version | Purpose |
@@ -274,6 +262,52 @@ The project is configured for CI/CD pipelines:
 - ✅ Screenshot on failure
 - ✅ Trace recording for debugging
 - ✅ Retries on transient failures
+
+### GitHub Actions Workflow
+
+The project includes automated GitHub Actions workflows (`.github/workflows/playwright.yml`) with two separate jobs:
+
+#### Smoke Tests (Fast Feedback)
+- **Trigger:** On every push to `main` or `master` branch
+- **Scope:** E2E tests only - tests tagged with `@smoke`
+- **Browsers:** Chromium and Firefox
+- **Duration:** ~5-10 minutes
+- **Timeout:** 30 minutes
+- **Retries:** 1 automatic retry on failure
+- **Report:** Uploaded as `smoke-tests-report` artifact
+
+**Purpose:** Quick sanity checks to catch critical failures early
+
+#### Regression Tests (Full Coverage)
+- **Trigger:** 
+  - Scheduled daily at 2 AM UTC
+  - On-demand push with `[regression]` in commit message
+- **Scope:** 
+  - **All API tests** (no filtering)
+  - E2E tests tagged with `@regression`
+- **Browsers:** Chromium and Firefox
+- **Duration:** ~15-20 minutes
+- **Timeout:** 60 minutes
+- **Retries:** 1 automatic retry on failure
+- **Report:** Uploaded as `regression-tests-report` artifact
+
+**Purpose:** Comprehensive test coverage for thorough validation
+
+#### Running Tests Locally
+
+To align with the CI pipeline:
+
+```bash
+# Smoke tests (E2E only)
+npm run test:smoke
+
+# Regression tests (API + E2E)
+npm run test:regression
+npm run test:api
+
+# All tests together
+npm run test
+```
 
 ## Troubleshooting
 
