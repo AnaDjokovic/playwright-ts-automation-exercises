@@ -2,7 +2,7 @@
   <img src="https://automationexercise.com/static/images/home/logo.png" alt="QA Automation Exercises Banner" width="500"/>
 </p>
 
-<h1 align="center">QA Automation Exercises - Playwright</h1>
+<h1 align="center">QA Automation Exercises -TS & Playwright</h1>
 
 ## Architecture Overview
 
