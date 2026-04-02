@@ -69,7 +69,7 @@ export default class RequestsApi {
 
   async exchangeCurrency(): Promise<Record<string, unknown>> {
     const response = await this.request.get(
-      'https://kurs.resenje.org/api/v1/currencies/usd/rates/today',
+      'https://kurs.resenje.org/api/v1/currencies/inr/rates/today',
     );
 
     if (!response.ok()) {
