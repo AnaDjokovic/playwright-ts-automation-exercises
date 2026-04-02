@@ -20,6 +20,11 @@ interface TestFixtures {
 
 export const test = base.extend<TestFixtures>({
   homePage: async ({ page }, use) => {
+    // Block ads once per page
+    await page.route('**/*doubleclick*', (route) => route.abort());
+    await page.route('**/*googlesyndication*', (route) => route.abort());
+    await page.route('**/*googletagmanager*', (route) => route.abort());
+
     await use(new HomePage(page));
   },
   productsPage: async ({ page }, use) => {
