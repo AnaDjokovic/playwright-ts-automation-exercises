@@ -27,7 +27,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Smoke Tests E2E
-        run: npx playwright test --project=e2e-chrome --project=e2e-firefox --grep @smoke -- --retries=1
+        run: npm run test:smoke
         # continue-on-error: true
 
       - uses: actions/upload-artifact@v4
