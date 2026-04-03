@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto';
 
 export function generateUniqueEmail(): string {
   const uuid = randomUUID().split('-')[0]; // Use first segment for shorter email
+  
   return `testuser_${uuid}@test.com`;
 }
 

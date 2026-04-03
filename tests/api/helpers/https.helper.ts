@@ -17,8 +17,7 @@ export default class RequestsApi {
       form: body,
     });
 
-    const bufferParse = await response.body();
-    const jsonResponse = JSON.parse(bufferParse.toString());
+    const jsonResponse = await response.json();
 
     return { response, jsonResponse };
   }
@@ -28,8 +27,7 @@ export default class RequestsApi {
       form: body,
     });
 
-    const bufferParse = await response.body();
-    const jsonResponse = JSON.parse(bufferParse.toString());
+   const jsonResponse = await response.json();
 
     return { response, jsonResponse };
   }
@@ -39,8 +37,7 @@ export default class RequestsApi {
       form: body,
     });
 
-    const bufferParse = await response.body();
-    const jsonResponse = JSON.parse(bufferParse.toString());
+    const jsonResponse = await response.json();
 
     return { response, jsonResponse };
   }
@@ -51,9 +48,7 @@ export default class RequestsApi {
     if (!response.ok()) {
       throw new Error(`GET /api/productsList failed with status ${response.status()}`);
     }
-
-    const bufferParse = await response.body();
-    const jsonResponse = JSON.parse(bufferParse.toString());
+    const jsonResponse = await response.json();
 
     return { response, jsonResponse };
   }
@@ -67,15 +62,14 @@ export default class RequestsApi {
       throw new Error(`POST /api/searchProduct failed with status ${response.status()}`);
     }
 
-    const bufferParse = await response.body();
-    const jsonResponse = JSON.parse(bufferParse.toString());
+    const jsonResponse = await response.json();
 
     return { response, jsonResponse };
   }
 
   async exchangeCurrency(): Promise<Record<string, unknown>> {
     const response = await this.request.get(
-      'https://kurs.resenje.org/api/v1/currencies/usd/rates/today',
+      'https://kurs.resenje.org/api/v1/currencies/inr/rates/today',
     );
 
     if (!response.ok()) {

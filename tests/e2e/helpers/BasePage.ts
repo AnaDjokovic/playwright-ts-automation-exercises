@@ -11,7 +11,6 @@ export default class BasePage {
    * Navigate to a path. If no path is provided, navigates to home page
    */
   async goto(path: string = ''): Promise<string> {
-    await this.blockAds();
     const fullPath = path === '' ? '/' : `/${path}`;
     await this.page.goto(fullPath);
     return this.page.url();

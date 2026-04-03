@@ -25,6 +25,7 @@ export default defineConfig({
     ignoreHTTPSErrors: true,
     screenshot: 'only-on-failure',
     trace: 'on-first-retry',
+    testIdAttribute: 'data-qa',
   },
 
   projects: [
@@ -45,6 +46,7 @@ export default defineConfig({
         baseURL: BASE_URL,
         viewport: null,
         headless: true,
+        testIdAttribute: 'data-qa',
       },
     },
     {
@@ -55,6 +57,7 @@ export default defineConfig({
         baseURL: BASE_URL,
         viewport: null,
         headless: true,
+        testIdAttribute: 'data-qa',
       },
     },
   ],
